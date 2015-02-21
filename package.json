@@ -1,0 +1,31 @@
+{
+  "name": "dev-ideas",
+  "version": "0.0.0",
+  "description": "Hunt ideas for dev projects, everyday",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/asarode/dev-ideas.git"
+  },
+  "keywords": [
+    "ideas",
+    "hack",
+    "dev",
+    "hunt",
+    "board"
+  ],
+  "author": "asarode, vishrutdixit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asarode/dev-ideas/issues"
+  },
+  "homepage": "https://github.com/asarode/dev-ideas",
+  "dependencies": {
+    "body-parser": "^1.12.0",
+    "express": "^4.11.2"
+  }
+}
