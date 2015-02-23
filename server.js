@@ -9,7 +9,7 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// app.use(express.static(__dirname + '/public')) // Might need this, not sure..
+app.use(express.static(__dirname + '/public')) // Might need this, not sure..
 
 
 // =============================================================
@@ -33,7 +33,7 @@ router.get('/', function(req, res) {
 // =============================================================
 // ROUTES
 // =============================================================
-
+app.use('/api', router);
 
 
 // =============================================================
@@ -44,6 +44,6 @@ var server = app.listen(8080, function() {
 	var host = server.address().address;
 	var port = server.address().port;
 
-	console.log('Example app listening at http://%s:%s', host, port);
+	console.log('Example app listening at http://localhost:%s', port);
 
 });
