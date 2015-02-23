@@ -39,11 +39,12 @@ app.use('/api', router);
 // =============================================================
 // START APP
 // =============================================================
-var server = app.listen(8080, function() {
+app.set('port', (process.env.PORT || 5000));
 
-	var host = server.address().address;
-	var port = server.address().port;
+var server = app.listen(app.get('port'), function() {
 
-	console.log('Example app listening at http://localhost:%s', port);
+	var port = app.get('port');
+
+	console.log('Example app listening at on port %s', port);
 
 });
