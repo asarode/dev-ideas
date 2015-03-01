@@ -7,11 +7,9 @@ var CommentSchema = new Schema({
 
 	author: String, 
 
-	userId: ObjectId,
+	userId: Schema.ObjectId,
 
-	postedAt: Date, // comments will generally be created and posted at the same time
-
-	postId: ObjectId, // id of the post that this comment is about
+	postId: Schema.ObjectId, // id of the post that this comment is about
 
 	body: String,
 
@@ -20,3 +18,5 @@ var CommentSchema = new Schema({
 	isDeleted: Boolean
 
 });
+
+module.exports = mongoose.model('Comment', CommentSchema);

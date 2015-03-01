@@ -9,7 +9,7 @@ var PostSchema = new Schema({
 
 	author: String,
 
-	userId: ObjectId,
+	userId: Schema.ObjectId,
 
 	title: String,
 
@@ -17,7 +17,7 @@ var PostSchema = new Schema({
 
 	commentCount: Number,
 
-	commenters: [ObjectId],
+	commenters: [Schema.ObjectId],
 
 	lastCommentedAt: Date,
 

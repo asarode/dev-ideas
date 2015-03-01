@@ -9,8 +9,10 @@ var UserSchema = new Schema({
 
 	createdAt: Date,
 
-	upvotes: [ObjectId],
+	upvotes: [Schema.ObjectId],
 
-	hacklist: [ObjectId]
+	hacklist: [Schema.ObjectId]
 
 });
+
+module.exports = mongoose.model('User', UserSchema);
