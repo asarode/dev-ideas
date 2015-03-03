@@ -34,14 +34,17 @@ router.get('/', function(req, res) {
 // ROUTES
 // =============================================================
 app.use('/api', router);
-require('./app/routes')(app);
-
+require('./app/routes')(router);
 
 // =============================================================
 // DATABASE
 // =============================================================
 var database = require('./config/database');
-mongoose.connect(database.url);
+mongoose.connect(database.url, function(err, db) {
+	if (err) console.log(err);
+	else console.log("Connected to database!");
+});
+console.log(database.url);
 
 // =============================================================
 // START APP

@@ -2,14 +2,19 @@ var User = require('./models/users');
 var Post = require('./models/posts');
 var Comment = require('./models/comments'); 
 
-module.exports = function(app) {
+module.exports = function(router) {
 
-	app.get('/api/users', function(req, res) {
+	router.get('/users', function(req, res) {
 		// return all user objects
-		res.json({ message: "get users" });
+		User.find(function(err, data) {
+			if (err) res.send(err);
+
+			res.json(data);
+		});
+		// res.json({ message: "get users" });
 	});
 
-	app.post('/api/user', function(req, res) {
+	router.post('/user', function(req, res) {
 		// create a new user with the parameters
 
 		var user = new User();
@@ -26,12 +31,17 @@ module.exports = function(app) {
 		});
 	});
 
-	app.get('/api/posts', function(req, res) {
+	router.get('/posts', function(req, res) {
 		// return all post objects
-		res.json({ message: "get posts" });
+		Post.find(function(err, data) {
+			if (err) res.send(err);
+
+			res.json(data);
+		});
+		// res.json({ message: "get posts" });
 	});
 
-	app.post('/api/post', function(req, res) {
+	router.post('/post', function(req, res) {
 		var post = new Post();
 
 		post.createdAt = Date.now();
@@ -56,11 +66,11 @@ module.exports = function(app) {
 		});
 	});
 
-	app.get('/api/post/:postId/comments', function(req, res) {
+	router.get('/post/:postId/comments', function(req, res) {
 		// return comments for a given postId
 	});
 
-	app.post('/api/post/:postId/comment', function(req, res) {
+	router.post('/post/:postId/comment', function(req, res) {
 		var comment = new Comment();
 
 		comment.createdAt = Date.now();
@@ -69,5 +79,10 @@ module.exports = function(app) {
 		comment.body = req.body.body;
 		comment.isActive = true;
 		comment.isDeleted = false;
+
+		comment.save(function(err) {
+			if (err) res.send(err);
+			else res.json({ message: 'Comment created!' });
+		});
 	});
 }
