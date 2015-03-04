@@ -21,13 +21,14 @@ module.exports = function(router) {
 
 		user.username = req.body.username;
 		user.email = req.body.email;  
+		user.password = req.body.password;
 		user.createdAt = Date.now();
 		user.upvotes = [];
 		user.hacklist = [];    
 
 		user.save(function(err) {
 			if (err) res.send(err);
-			else res.json({ message: 'User created!' });
+			else res.json(user);
 		});
 	});
 
