@@ -4,7 +4,9 @@
 var express 	= require('express');
 var bodyParser  = require('body-parser');
 var mongoose    = require('mongoose');
-var bcrypt 		= require('bcrypt-nodejs')
+var bcrypt 		= require('bcrypt-nodejs');
+var jwt 		= require('jsonwebtoken');
+var superSecret = 'devideasforlifegoodsir';
 
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -16,12 +18,53 @@ app.use(express.static(__dirname + '/public')) // Might need this, not sure..
 // =============================================================
 // API
 // =============================================================
+var User = require('./app/models/users');
+
 var router = express.Router();
+
+router.post('/authenticate', function(req, res) {
+	User.findOne({ username: req.body.username }, function(err, user) {
+		if (!user) {
+			res.json({ success: false, message: 'Authentication failed. User not found.'});
+		} else if (user) {
+			var validPassword = user.comparePassword(req.body.password);
+			if (!validPassword) {
+				res.json({ success: false, message: 'Authenticatioin failed. Wrong password.' });
+			} else {
+				var token = jwt.sign(user, superSecret, {
+					expiresInMinutes: 1440
+				});
+
+				res.json({
+					success: true,
+					message: 'Enjoy your token!',
+					token: token
+				});
+			}
+		}
+
+	});
+});
 
 // middleware for all requests
 router.use(function(req, res, next) {
 	console.log('Request: ' + req);
 	console.log('Response: ' + res);
+
+	var token = req.body.token || req.param('token') || req.headers['x-access-token'];
+
+	if (token) {
+		jwt.verify(token, superSecret, function(err, decoded) {
+			if (err) {
+				return res.json({ success: false, message: 'Failed to authenticate token.' });
+			} else {
+				req.decoded = decoded;
+			}
+		});
+	} else {
+		return res.json({ success: false, message: 'No token provided.' });
+	}
+
 	next();
 });
 

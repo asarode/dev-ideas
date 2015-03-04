@@ -2,6 +2,9 @@ var User = require('./models/users');
 var Post = require('./models/posts');
 var Comment = require('./models/comments'); 
 
+var jwt = require('jsonwebtoken');
+var superSecret = 'devideasforlifegoodsir';
+
 module.exports = function(router) {
 
 	router.get('/users', function(req, res) {
