@@ -7,6 +7,10 @@ var superSecret = 'devideasforlifegoodsir';
 
 module.exports = function(router) {
 
+	router.get('/me', function(req, res) {
+		res.send(req.decoded);
+	});
+
 	router.get('/users', function(req, res) {
 		// return all user objects
 		User.find(function(err, data) {
@@ -17,7 +21,39 @@ module.exports = function(router) {
 		// res.json({ message: "get users" });
 	});
 
-	router.post('/user', function(req, res) {
+	router.get('/users/:userId', function(req, res) {
+		User.findById(req.params.userId, function(err, user) {
+			if (err) res.send(err);
+
+			res.json(user);
+		});
+	});
+
+	router.put('/users/:userId', function(req, res) {
+		User.findById(req.params.userId, function(err, user) {
+			if (err) res.send(err);
+
+			if (req.body.username) user.username = req.body.username;
+			if (req.body.email) user.email = req.body.email;
+			if (req.body.password) user.password = req.body.password;
+
+			user.save(function(err) {
+				if (err) res.send(err);
+
+				res.json({ message: 'User updated!' });
+			});
+		});
+	});
+
+	router.delete('/users/:userId', function(req, res) {
+		User.remove({ _id: req.params.userId }, function(err, user) {
+			if (err) res.send(err);
+
+			res.json({ message: 'Successfully deleted!' });
+		});
+	});
+
+	router.post('/users', function(req, res) {
 		// create a new user with the parameters
 
 		var user = new User();
