@@ -7,6 +7,10 @@ var superSecret = 'devideasforlifegoodsir';
 
 module.exports = function(router) {
 
+	router.get('/me', function(req, res) {
+		res.send(req.decoded);
+	});
+
 	router.get('/users', function(req, res) {
 		// return all user objects
 		User.find(function(err, data) {
@@ -17,7 +21,39 @@ module.exports = function(router) {
 		// res.json({ message: "get users" });
 	});
 
-	router.post('/user', function(req, res) {
+	router.get('/users/:userId', function(req, res) {
+		User.findById(req.params.userId, function(err, user) {
+			if (err) res.send(err);
+
+			res.json(user);
+		});
+	});
+
+	router.put('/users/:userId', function(req, res) {
+		User.findById(req.params.userId, function(err, user) {
+			if (err) res.send(err);
+
+			if (req.body.username) user.username = req.body.username;
+			if (req.body.email) user.email = req.body.email;
+			if (req.body.password) user.password = req.body.password;
+
+			user.save(function(err) {
+				if (err) res.send(err);
+
+				res.json({ message: 'User updated!' });
+			});
+		});
+	});
+
+	router.delete('/users/:userId', function(req, res) {
+		User.remove({ _id: req.params.userId }, function(err, user) {
+			if (err) res.send(err);
+
+			res.json({ message: 'Successfully deleted!' });
+		});
+	});
+
+	router.post('/users', function(req, res) {
 		// create a new user with the parameters
 
 		var user = new User();
@@ -33,16 +69,6 @@ module.exports = function(router) {
 			if (err) res.send(err);
 			else res.json(user);
 		});
-	});
-
-	router.get('/posts', function(req, res) {
-		// return all post objects
-		Post.find(function(err, data) {
-			if (err) res.send(err);
-
-			res.json(data);
-		});
-		// res.json({ message: "get posts" });
 	});
 
 	router.post('/post', function(req, res) {
@@ -67,26 +93,6 @@ module.exports = function(router) {
 		post.save(function(err) {
 			if (err) res.send(err);
 			else res.json({ message: 'Post created!' });
-		});
-	});
-
-	router.get('/post/:postId/comments', function(req, res) {
-		// return comments for a given postId
-	});
-
-	router.post('/post/:postId/comment', function(req, res) {
-		var comment = new Comment();
-
-		comment.createdAt = Date.now();
-		comment.author = req.body.author;
-		comment.userId = req.body.userId;
-		comment.body = req.body.body;
-		comment.isActive = true;
-		comment.isDeleted = false;
-
-		comment.save(function(err) {
-			if (err) res.send(err);
-			else res.json({ message: 'Comment created!' });
 		});
 	});
 }
