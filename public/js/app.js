@@ -1,1 +1,1 @@
-angular.module('devideasApp', ['app.routes', 'authService', 'mainCtrl', 'userCtrl', 'userService']);
+angular.module('devideasApp', ['app.routes', 'authService', 'mainCtrl', 'userCtrl', 'userService', 'postService']);

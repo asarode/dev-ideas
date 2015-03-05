@@ -1,6 +1,6 @@
 angular.module('mainCtrl', [])
 
-.controller('mainController', function($rootScope, $location, Auth) {
+.controller('mainController', function($rootScope, $location, Auth, Post) {
 	var vm = this;
 
 	vm.loggedIn = Auth.isLoggedIn();
@@ -26,4 +26,12 @@ angular.module('mainCtrl', [])
 		vm.user = {};
 		$location.path('/login');
 	};
+
+	Post.all().then(function(response) {
+		vm.posts = response.data;
+		console.log(vm.posts);
+	})
+	
+
+
 });

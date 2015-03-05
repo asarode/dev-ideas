@@ -71,16 +71,6 @@ module.exports = function(router) {
 		});
 	});
 
-	router.get('/posts', function(req, res) {
-		// return all post objects
-		Post.find(function(err, data) {
-			if (err) res.send(err);
-
-			res.json(data);
-		});
-		// res.json({ message: "get posts" });
-	});
-
 	router.post('/post', function(req, res) {
 		var post = new Post();
 
@@ -103,26 +93,6 @@ module.exports = function(router) {
 		post.save(function(err) {
 			if (err) res.send(err);
 			else res.json({ message: 'Post created!' });
-		});
-	});
-
-	router.get('/post/:postId/comments', function(req, res) {
-		// return comments for a given postId
-	});
-
-	router.post('/post/:postId/comment', function(req, res) {
-		var comment = new Comment();
-
-		comment.createdAt = Date.now();
-		comment.author = req.body.author;
-		comment.userId = req.body.userId;
-		comment.body = req.body.body;
-		comment.isActive = true;
-		comment.isDeleted = false;
-
-		comment.save(function(err) {
-			if (err) res.send(err);
-			else res.json({ message: 'Comment created!' });
 		});
 	});
 }

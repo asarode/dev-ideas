@@ -21,6 +21,8 @@ app.use(express.static(__dirname + '/public')) // Might need this, not sure..
 // API
 // =============================================================
 var User = require('./app/models/users');
+var Post = require('./app/models/posts');
+var Comment = require('./app/models/comments');
 
 var router = express.Router();
 
@@ -47,6 +49,36 @@ router.post('/authenticate', function(req, res) {
 
 	});
 });
+
+router.get('/posts', function(req, res) {
+	// return all post objects
+	Post.find(function(err, data) {
+		if (err) res.send(err);
+
+		res.json(data);
+	});
+});
+
+router.get('/post/:postId/comments', function(req, res) {
+		// return comments for a given postId
+});
+
+router.post('/post/:postId/comment', function(req, res) {
+	var comment = new Comment();
+
+	comment.createdAt = Date.now();
+	comment.author = req.body.author;
+	comment.userId = req.body.userId;
+	comment.body = req.body.body;
+	comment.isActive = true;
+	comment.isDeleted = false;
+
+	comment.save(function(err) {
+		if (err) res.send(err);
+		else res.json({ message: 'Comment created!' });
+	});
+});
+
 
 // middleware for all requests
 router.use(function(req, res, next) {
