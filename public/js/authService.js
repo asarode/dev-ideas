@@ -5,7 +5,7 @@ angular.module('authService', [])
 
 	// handle login
 	authFactory.login = function(username, password) {
-		return $http.post('/api/authnticate', {
+		return $http.post('/api/authenticate', {
 			username: username,
 			password: password
 		})

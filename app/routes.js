@@ -5,7 +5,94 @@ var Comment = require('./models/comments');
 var jwt = require('jsonwebtoken');
 var superSecret = 'devideasforlifegoodsir';
 
-module.exports = function(router) {
+module.exports = function(app, express) {
+
+
+	var router = express.Router();
+
+	// test route accessed at GET http://localhost:8080/api
+	router.get('/', function(req, res) {
+		res.json({ message: "yo, it's the Dev Ideas api" })
+	});
+
+	router.post('/authenticate', function(req, res) {
+		User.findOne({ username: req.body.username }, function(err, user) {
+			if (!user) {
+				res.json({ success: false, message: 'Authentication failed. User not found.'});
+			} else if (user) {
+				var validPassword = user.comparePassword(req.body.password);
+				if (!validPassword) {
+					res.json({ success: false, message: 'Authenticatioin failed. Wrong password.' });
+				} else {
+					var token = jwt.sign(user, superSecret, {
+						expiresInMinutes: 1440
+					});
+
+					res.json({
+						success: true,
+						message: 'Enjoy your token!',
+						token: token
+					});
+				}
+			}
+
+		});
+	});
+
+	router.get('/posts', function(req, res) {
+		// return all post objects
+		Post.find(function(err, data) {
+			if (err) res.send(err);
+
+			res.json(data);
+		});
+	});
+
+	router.get('/post/:postId/comments', function(req, res) {
+			// return comments for a given postId
+	});
+
+	router.post('/post/:postId/comment', function(req, res) {
+		var comment = new Comment();
+
+		comment.createdAt = Date.now();
+		comment.author = req.body.author;
+		comment.userId = req.body.userId;
+		comment.body = req.body.body;
+		comment.isActive = true;
+		comment.isDeleted = false;
+
+		comment.save(function(err) {
+			if (err) res.send(err);
+			else res.json({ message: 'Comment created!' });
+		});
+	});
+
+
+	// middleware for all requests
+	router.use(function(req, res, next) {
+		var token = req.body.token || req.params.token || req.headers['x-access-token'];
+
+		if (token) {
+			jwt.verify(token, superSecret, function(err, decoded) {
+				if (err) {
+					res.status(403).send({ 
+	        			success: false, 
+	        			message: 'Failed to authenticate token.' 
+	    			});
+				} else {
+					req.decoded = decoded;
+					next();
+				}
+			});
+		} else {
+			res.status(403).send({ 
+   	 			success: false, 
+   	 			message: 'No token provided.' 
+   	 		});
+		}
+
+	});
 
 	router.get('/me', function(req, res) {
 		res.send(req.decoded);
@@ -95,4 +182,6 @@ module.exports = function(router) {
 			else res.json({ message: 'Post created!' });
 		});
 	});
+
+	return router;
 }

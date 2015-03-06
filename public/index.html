@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>User CRM</title>
+	<title>Dev Ideas</title>
 
 	<!-- FOR ANGULAR ROUTING -->
 	<base href="/">
 
 	<!-- CSS  -->
 	<!-- load bootstrap from CDN and custom CSS -->
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.1/paper/bootstrap.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css">
 
 	<!-- JS -->
@@ -33,14 +33,11 @@
 
 <!-- NAVBAR -->
 <header>
-	<div class="navbar navbar-inverse" ng-if="main.loggedIn">
+	<div class="navbar navbar-inverse">
 	<div class="container">
 		<div class="navbar-header">
-			<a href="/" class="navbar-brand"><span class="glyphicon glyphicon-fire text-danger"></span> User CRM</a>
+			<a href="/" class="navbar-brand"><span class="glyphicon glyphicon-fire text-danger"></span> Dev Ideas</a>
 		</div>	
-		<ul class="nav navbar-nav">
-			<li><a href="/users"><span class="glyphicon glyphicon-user"></span> Users</a></li>
-		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			<li ng-if="!main.loggedIn"><a href="/login">Login</a></li>
 			<li ng-if="main.loggedIn" class="navbar-text">Hello {{ main.user.username }}!</li>
