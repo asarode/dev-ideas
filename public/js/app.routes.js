@@ -4,7 +4,13 @@ angular.module('app.routes', ['ngRoute'])
 	$routeProvider
 		.when('/', {
 			templateUrl: 'views/home.html'
-		});
+		})
+
+		.when('/login', {
+			templateUrl: 'views/login.html',
+			controller: 'mainController',
+			controllerAs: 'login'
+		})
 
 	$locationProvider.html5Mode(true);
 });

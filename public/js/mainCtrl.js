@@ -10,20 +10,25 @@ angular.module('mainCtrl', [])
 
 		Auth.getUser()
 			.then(function(data) {
-				vm.user = data;
+				vm.user = data.data;
 			});
 	});
 
 	vm.doLogin = function() {
+
+		vm.error = '';
 		Auth.login(vm.loginData.username, vm.loginData.password)
 		.success(function(data) {
-			$location.path('/users');
+			if (data.success) {
+				$location.path('/');
+			}
+			else vm.error = data.message;
 		});
 	};
 
 	vm.doLogout = function() {
 		Auth.logout();
-		vm.user = {};
+		vm.user = '';
 		$location.path('/login');
 	};
 
