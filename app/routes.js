@@ -39,6 +39,24 @@ module.exports = function(app, express) {
 		});
 	});
 
+	router.post('/users', function(req, res) {
+		// create a new user with the parameters
+
+		var user = new User();
+
+		user.username = req.body.username;
+		user.email = req.body.email;  
+		user.password = req.body.password;
+		user.createdAt = Date.now();
+		user.upvotes = [];
+		user.hacklist = [];    
+
+		user.save(function(err) {
+			if (err) res.send(err);
+			else res.json(user);
+		});
+	});
+
 	router.get('/posts', function(req, res) {
 		// return all post objects
 		Post.find(function(err, data) {
@@ -137,24 +155,6 @@ module.exports = function(app, express) {
 			if (err) res.send(err);
 
 			res.json({ message: 'Successfully deleted!' });
-		});
-	});
-
-	router.post('/users', function(req, res) {
-		// create a new user with the parameters
-
-		var user = new User();
-
-		user.username = req.body.username;
-		user.email = req.body.email;  
-		user.password = req.body.password;
-		user.createdAt = Date.now();
-		user.upvotes = [];
-		user.hacklist = [];    
-
-		user.save(function(err) {
-			if (err) res.send(err);
-			else res.json(user);
 		});
 	});
 
