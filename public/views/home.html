@@ -4,4 +4,5 @@
 	<div>Posted by: {{ post.author }}</div>
 	<div>Posted at: {{ post.createdAt }}</div>
 	<div>Upvotes: {{ post.upvoteCount }}</div>
+	<button ng-click="main.upvote(post._id)">Upvote</button>
 </div>

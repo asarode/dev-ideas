@@ -11,46 +11,15 @@
 	<!-- load bootstrap from CDN and custom CSS -->
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css">
+	<link rel="stylesheet" href="css/index.css">
 
 	<!-- JS -->
 	<!-- load angular and angular-route via CDN -->
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.js"></script>
-
-	<!-- controllers -->
-	<script src="js/mainCtrl.js"></script>
-	<script src="js/userCtrl.js"></script>
-	<!-- services -->
-	<script src="js/authService.js"></script>
-	<script src="js/userService.js"></script>
-	<script src="js/postService.js"></script>
-
-	<!-- main Angular app files -->
-	<script src="js/app.routes.js"></script>
-	<script src="js/app.js"></script>
 </head>
-<body ng-app="devideasApp" ng-controller="mainController as main">
 
-<!-- NAVBAR -->
-<header>
-	<div class="navbar navbar-inverse">
-	<div class="container">
-		<div class="navbar-header">
-			<a href="/" class="navbar-brand"><span class="glyphicon glyphicon-fire text-danger"></span> Dev Ideas</a>
-		</div>	
-		<ul class="nav navbar-nav navbar-right">
-			<li ng-if="!main.loggedIn"><a href="/login">Login</a></li>
-			<li ng-if="main.loggedIn" class="navbar-text">Hello {{ main.user.username }}!</li>
-			<li ng-if="main.loggedIn"><a href="#" ng-click="main.doLogout()">Logout</a></li>
-		</ul>
-	</div>
-	</div>
-</header>
-
-<main class="container">
-	<!-- ANGULAR VIEWS -->
-	<div ng-view></div>
-</main>
-
+<body>
 </body>
+
 </html>

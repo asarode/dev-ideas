@@ -1,0 +1,18 @@
+<form ng-submit="post.createPost()">
+
+	<div class="alert alert-danger" ng-show="post.message">
+		{{ post.message }}
+	</div>
+
+	<div class="form-group">
+		<label>Title</label>
+		<input type="text" class="form-control" ng-model="post.postData.title">
+	</div>
+	<div class="form-group">
+		<label>Body</label>
+		<input type="text" class="form-control" ng-model="post.postData.body">
+	</div>
+	<button type="submit" class="btn btn-block btn-primary">
+		<span>Post Idea</span>
+	</button>
+</form>
