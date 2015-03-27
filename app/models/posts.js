@@ -19,6 +19,10 @@ var PostSchema = new Schema({
 
 	commenters: [Schema.ObjectId],
 
+	buildCount: Number,
+
+	builders: [Schema.ObjectId],
+
 	lastCommentedAt: Date,
 
 	upvoteCount: Number,

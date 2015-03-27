@@ -1,3 +1,97 @@
-.post-item {
-  border-bottom: 1px solid #eee;
+a {
+  color: #e38323;
+}
+a:hover {
+  color: #e38323;
+}
+.container {
+  max-width: 780px;
+}
+.text-minor,
+.post-interaction span {
+  color: #828282;
+}
+header h1 {
+  text-align: center;
+}
+header ul {
+  list-style: none;
+  padding-left: 0;
+  display: block;
+  text-align: center;
+}
+header li {
+  display: inline;
+  padding: 4px 8px;
+}
+.search {
+  text-align: center;
+}
+.search input {
+  width: 220px;
+  border-radius: 2px;
+  border: 1px solid #eee;
+}
+.day-title {
+  margin-bottom: 16px;
+}
+.day-title h4 {
+  font-size: 24px;
+  font-weight: normal;
+  display: inline-block;
+}
+.day-title .text-minor {
+  margin-left: 8px;
+}
+.posts-group {
+  list-style: none;
+  padding-left: 0;
+}
+.post {
+  border-radius: 3px;
+  border-bottom: 1px solid #fafafa;
+}
+.post:hover {
+  cursor: pointer;
+  background-color: #fffdf7;
+}
+.post-wrap {
+  padding: 12px 8px;
+  display: flex;
+  align-items: flex-start;
+}
+.post-upvote-button {
+  flex: 0 0 32px;
+  border: 1px solid #eee;
+  border-radius: 2px;
+  background-color: #fff;
+}
+.post-upvote-button :hover {
+  background-color: #eee;
+}
+.upvote-button {
+  display: block;
+  text-align: center;
+}
+.upvote-button span {
+  display: block;
+}
+.upvote-button:hover {
+  text-decoration: none;
+}
+.post-content {
+  padding-left: 16px;
+}
+.post-title {
+  font-size: 18px;
+}
+.post-description {
+  margin-top: 8px;
+}
+.post-interaction {
+  margin-top: 8px;
+}
+.post-interaction span {
+  padding-right: 8px;
+  font-size: 12px;
 }

@@ -10,6 +10,8 @@ var UserSchema = new Schema({
 
 	username: String,
 
+	infoTag: String,
+
 	avatarURL: String,
 
 	profileURL: String,

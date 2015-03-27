@@ -73,6 +73,7 @@ passport.use(new githubStrategy({
 					oauthID: profile.id,
 					name: profile.displayName,
 					username: profile.username,
+					infoTag: '',
 					avatarURL: profile._json.avatar_url,
 					profileURL: profile.profileUrl,
 					createdAt: Date.now(),
@@ -117,6 +118,14 @@ app.get('/auth/github/callback', passport.authenticate('github', {
 app.get('/logout', function(req, res) {
 	req.logout();
 	res.redirect('/');
+});
+app.get('/posts', function(req, res) {
+	// return all post objects
+	Post.find().sort('-postedAt').exec(function(err, data) {
+		if (err) res.send(err);
+
+		res.json(data);
+	});
 });
 // var router = require('./app/routes')(app, express);
 // app.use('/api', router);
