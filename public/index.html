@@ -12,85 +12,14 @@
 
 	<!-- JS -->
 	<script src="js/angular.js"></script>
-	<script src="js/postService.js"></script>
+	<script src="js/angular-ui-router.js"></script>
+	<script src="js/angular-resource.js"></script>
+	<script src="js/services.js"></script>
 	<script src="js/app.js"></script>
 </head>
 
 <body ng-app="DevIdeasApp" ng-controller="mainController as main">
-	<header class="container">
-		<h1>Dev Ideas</h1>
-		<ul>
-			<li><a href="">About</a></li>
-			<li><a href="">Profile</a></li>
-			<li><a href="">Login</a></li>
-			<li><a href="">Submit</a></li>
-		</ul>
-	</header>
-	<div class="container search">
-		<input type="text">
-	</div>
-	<div class="container posts">
-		<div class="day-container">
-			<div class="day-title">
-				<h4>Today</h4>
-				<span class="text-minor">March 23</span>
-			</div>
-			<ul class="posts-group">
-				<li class="post" ng-repeat="post in main.posts">
-					<div class="post-wrap">
-						<div class="post-upvote-button">
-							<a href="" class="upvote-button">
-								<span class="upvote-arrow glyphicon glyphicon-triangle-top"></span>
-								<span class="upvote-count">{{ post.upvoteCount }}</span>
-							</a>
-						</div>
-						<div class="post-content">
-							<div class="post-content-wrap">
-								<div class="post-title">
-									{{ post.title }}
-								</div>
-								<div class="post-description">
-									{{ post.body }}
-								</div>
-							</div>
-							<div class="post-interaction">
-								<span>Submitted by {{ post.author }}</span>
-								<span>{{ post.commentCount }} comments</span>
-								<span>{{ post.buildCount }} want to build</span>
-								<span><a href="">Add to build list</a></span>
-							</div>
-						</div>
-					</div>
-				</li>
-				<li class="post">
-					<div class="post-wrap">
-						<div class="post-upvote-button">
-							<a href="" class="upvote-button">
-								<span class="upvote-arrow glyphicon glyphicon-triangle-top"></span>
-								<span class="upvote-count">123</span>
-							</a>
-						</div>
-						<div class="post-content">
-							<div class="post-content-wrap">
-								<div class="post-title">
-									This is the title of a post
-								</div>
-								<div class="post-description">
-									This is a somewhat longer description of the idea. It can include multiple lines of text so the user can explain the idea well.
-								</div>
-							</div>
-							<div class="post-interaction">
-								<span>Submitted by Arjun Sarode</span>
-								<span>13 comments</span>
-								<span>9 want to build</span>
-								<span><a href="">Add to build list</a></span>
-							</div>
-						</div>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</div>
+	<div ui-view><div>
 </body>
 
 </html>

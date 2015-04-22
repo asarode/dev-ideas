@@ -94,26 +94,28 @@ var ensureAuthenticated = function(req, res, next) {
 	if (req.isAuthenticated()) return next();
 	res.redirect('/');
 }
-
-
-// test route accessed at GET http://localhost:5000/api
-app.get('/', function(req, res) {
-	res.json({ message: "yo, it's the Dev Ideas api" })
+// app.get('/', function(req, res) {
+// 	res.redirect('/home');
+// });
+// app.get('/*', function(req, res) {
+// 	if (req.user) {
+// 		res.cookie('user', JSON.stringify({
+// 			'username' : user._id
+// 		}));
+// 	}
+// 	res.render('index');
+// });
+app.get('/loggedin', function(req, res) {
+	res.send(req.isAuthenticated() ? req.user : false);
 });
-app.get('/account', ensureAuthenticated, function(req, res) {
-	User.findById(req.session.passport.user, function(err, user) {
-		if (err) console.log(err);
-		else res.json({ user: user });
-	});
-});
-app.get('/auth/github', passport.authenticate('github'), 
-	function(res, res) {
-
+app.get('/auth/github', passport.authenticate('github'),
+	function(req, res) {
+		
 	});
 app.get('/auth/github/callback', passport.authenticate('github', { 
 	failureRedirect: '/' }),
 	function(req, res) {
-		res.redirect('/account')
+		res.redirect('/');
 	});
 app.get('/logout', function(req, res) {
 	req.logout();
@@ -127,6 +129,7 @@ app.get('/posts', function(req, res) {
 		res.json(data);
 	});
 });
+
 // var router = require('./app/routes')(app, express);
 // app.use('/api', router);
 
